@@ -1,0 +1,67 @@
+---
+title: How Launching Works
+description: A detailed walkthrough of everything YggUtils does from startup to server launch.
+---
+
+When you run `java -jar YggUtils.jar`, several things happen in sequence before your Minecraft server starts.
+
+## Startup Sequence
+
+<div className="fd-steps">
+
+### Meta directory
+
+YggUtils ensures a `meta/` directory exists in the working directory. This is where `authlibinjector.jar` is stored.
+
+### Authlib-injector check
+
+If `meta/authlibinjector.jar` is not present, YggUtils downloads it automatically from the official GitHub release. If the download fails, YggUtils exits with code `1` and prints an error.
+
+### Config validation
+
+YggUtils reads `YggUtils.yml` and verifies:
+
+- The file exists
+- Both `authserver` and `serverfile` are non-empty strings
+- The file named in `serverfile` exists on disk
+
+See [Config Validation](/docs/reference/configuration#validation-rules) for full behaviour on each failure case.
+
+### Server launch
+
+YggUtils starts the server via `ProcessBuilder` with the following effective command:
+
+```bash
+java -javaagent:meta/authlibinjector.jar=<authserver> -jar <serverfile> nogui
+```
+
+The `nogui` flag is always appended. stderr is merged into stdout so all output flows through a single stream.
+
+### Console forwarding
+
+A background thread reads from your stdin and writes each line to the server process's stdin, forwarding your commands in real time.
+
+### Output piping
+
+A second background thread reads the server's stdout line by line, prints each line to your console, and appends it to `YggUtils-server.log`.
+
+</div>
+
+## The Restart Loop
+
+After launching, YggUtils blocks waiting for the server process to exit. The exit code determines what happens next:
+
+| Exit Code | Meaning | Action |
+|---|---|---|
+| `0` | Clean shutdown (`/stop`) | YggUtils exits normally |
+| Non-zero | Crash or unexpected exit | Wait 3 seconds, then relaunch |
+
+This loop continues until a clean shutdown occurs or YggUtils itself is terminated.
+
+## JVM Flags
+
+<Callout title="Warning" type="warn">
+  YggUtils does not pass any additional JVM flags to the server process. Flags such as heap size (`-Xmx`) or GC tuning options set on the YggUtils invocation itself do **not** carry through to the spawned server process.
+</Callout>
+
+If you need custom JVM flags for the server, configure them at the hosting level or wrap YggUtils in a startup script that launches the server directly with those flags in addition to the agent argument.

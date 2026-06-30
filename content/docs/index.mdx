@@ -1,0 +1,38 @@
+---
+title: What is YggUtils?
+description: An overview of YggUtils, and what problem it solves.
+icon: Box
+---
+
+YggUtils is a lightweight Java server wrapper that injects [authlib-injector](https://github.com/yushijinhun/authlib-injector) into any Minecraft server's JVM at launch — enabling custom Yggdrasil authentication on hosting environments where you cannot set JVM arguments directly.
+
+<Callout title="Just want to get running?" type="info">
+  Head to the [Getting Started](/docs/introduction/getting-started) page.
+</Callout>
+
+## The Problem It Solves
+
+Most Minecraft hosting panels don't let you modify JVM startup flags. Running a private network with a custom auth server normally requires adding a `-javaagent` flag to the JVM — something many shared hosts simply don't expose.
+
+YggUtils wraps your server JAR and handles the agent injection itself, so you only need to run one JAR.
+
+## Key Features
+
+<Cards>
+  <Card title="Authlib Injector Fetching">
+    Downloads and manages `authlib-injector.jar` automatically. No manual installation required.
+  </Card>
+  <Card title="Simple Configuration">
+    A single YAML file controls which auth server and JAR to use. No interactive setup prompts.
+  </Card>
+  <Card title="Auto-Restart">
+    Detects crashes via non-zero exit codes and relaunches the server after a 3-second delay.
+  </Card>
+  <Card title="Silent Operation">
+    No wrapper noise in your console. Server output is passed through exactly as produced.
+  </Card>
+</Cards>
+
+## What YggUtils Is Not
+
+YggUtils is **not** an authentication server. It does not implement the Yggdrasil API itself — it simply redirects your Minecraft server's auth calls to whichever backend you configure. You will need a separately hosted Yggdrasil-compatible auth server.

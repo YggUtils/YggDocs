@@ -1,0 +1,53 @@
+---
+title: Authlib Injector
+description: How YggUtils uses authlib-injector to redirect Minecraft authentication to a custom server.
+---
+
+YggUtils uses [authlib-injector](https://github.com/yushijinhun/authlib-injector) to redirect Minecraft's authentication calls from Mojang's servers to your custom Yggdrasil backend.
+
+## What Is authlib-injector?
+
+authlib-injector is a Java agent that patches Minecraft's bundled `authlib` at runtime using bytecode manipulation. When attached to the JVM via `-javaagent`, it intercepts all outgoing authentication requests and rewrites the target URLs — replacing `sessionserver.mojang.com` and `authserver.mojang.com` with your custom server.
+
+## Automatic Download
+
+YggUtils downloads authlib-injector automatically on first run if it isn't already present, saving it to:
+
+```
+meta/authlibinjector.jar
+```
+
+<Callout title="Info" type="info">
+  If you want to use a specific version of authlib-injector, place the JAR file manually at `meta/authlibinjector.jar` before running YggUtils. The download is skipped if the file already exists.
+</Callout>
+
+## How It Is Attached
+
+YggUtils passes authlib-injector to the server JVM using the standard Java agent flag:
+
+```bash
+-javaagent:meta/authlibinjector.jar=<authserver>
+```
+
+The value after `=` is your `authserver` URL from `YggUtils.yml`. On server startup, authlib-injector fetches the API metadata from this URL to configure its URL rewrites.
+
+## Auth Server Requirements
+
+Your authentication server must:
+
+- Implement the Yggdrasil API
+- Expose an API root URL that authlib-injector can query for its metadata
+
+Most self-hosted solutions such as [blessing-skin-server](https://github.com/bs-community/blessing-skin-server) support this out of the box.
+
+The `authserver` value in your config should be the **root URL** only:
+
+```yaml
+authserver: https://auth.example.com
+```
+
+authlib-injector appends the necessary API paths itself — do not include a trailing path.
+
+## Updating authlib-injector
+
+To update to a newer version, replace `meta/authlibinjector.jar` with the new JAR manually. YggUtils will use whatever file is present at that path without any additional changes required.

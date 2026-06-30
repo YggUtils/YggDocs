@@ -1,0 +1,21 @@
+{
+  "title": "YggUtils",
+  "description": "Run authlib-injector on any server",
+  "icon": "Building",
+  "root": true,
+  "pages": [
+    "---Introduction---",
+    "index",
+    "getting-started",
+    "comparisons",
+    "---Guide---",
+    "how-launching-works",
+    "authlib-injector",
+    "---Reference---",
+    "navigation",
+    "versioning",
+    "deploying",
+    "internationalization",
+    "search"
+  ]
+}

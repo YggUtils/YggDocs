@@ -1,0 +1,76 @@
+---
+title: Getting Started
+description: Set up and run YggUtils for the first time in under five minutes.
+icon: Rocket
+---
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **Java** installed — use the same version your Minecraft server JAR requires
+- Your Minecraft server **`.jar` file** present in the directory you'll run YggUtils from
+- A **Yggdrasil-compatible authentication server URL**
+
+## Installation
+
+Download the latest `YggUtils.jar` from the [GitHub releases page](https://github.com/YggUtils/YggUtils/releases) and place it in the same directory as your server JAR.
+
+Your folder should look like this:
+
+```
+/server
+├── YggUtils.jar
+├── server.jar
+├── server.properties
+└── ...
+```
+
+## Setup
+
+<div className="fd-steps">
+
+### Generate the config
+
+Run YggUtils once. Since no config exists yet, it will generate `YggUtils.yml` and exit immediately.
+
+```bash
+java -jar YggUtils.jar
+```
+
+You'll see:
+
+```
+[YggUtils] No configuration found. A default config has been generated: YggUtils.yml
+[YggUtils] Please fill in 'authserver' and 'serverfile' before running again.
+```
+
+### Edit the config
+
+Open `YggUtils.yml` and fill in both fields:
+
+```yaml
+authserver: https://your.auth.server
+serverfile: server.jar
+```
+
+| Field | Description |
+|---|---|
+| `authserver` | Root URL of your Yggdrasil-compatible authentication server |
+| `serverfile` | Filename of your Minecraft server JAR, relative to the working directory |
+
+### Start the server
+
+Run YggUtils again. It will silently launch your server with authlib-injector attached.
+
+```bash
+java -jar YggUtils.jar
+```
+
+All server output passes through to your console exactly as normal.
+
+</div>
+
+<Callout title="Warning" type="warn">
+  If either `authserver` or `serverfile` is left unchanged in the config, YggUtils will print a warning and exit without starting the server.
+</Callout>
