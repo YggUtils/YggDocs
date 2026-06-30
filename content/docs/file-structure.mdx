@@ -1,0 +1,61 @@
+---
+title: File Structure
+description: Every file and directory that YggUtils creates or uses during operation.
+icon: FolderOpen
+---
+
+This page describes all files and directories that YggUtils creates or manages at runtime.
+
+## Directory Layout
+
+```
+/your-server-directory
+├── YggUtils.jar                  ← the wrapper you run
+├── YggUtils.yml                  ← configuration file
+├── YggUtils-server.log           ← appended server output log
+├── server.jar                    ← your Minecraft server JAR
+├── meta/
+│   └── authlibinjector.jar       ← auto-downloaded on first run
+├── server.properties
+├── world/
+└── ...
+```
+
+## File Reference
+
+### `YggUtils.yml`
+
+The configuration file. Generated automatically on first run if missing. Contains `authserver` and `serverfile`.
+
+See the [Configuration](/docs/reference/configuration) page for full field documentation.
+
+---
+
+### `YggUtils-server.log`
+
+A plain-text log of all server output. YggUtils appends to this file across sessions — it is **never** cleared automatically.
+
+Each line is written exactly as the server produced it. No timestamp or wrapper prefix is added.
+
+<Callout type="info" title="Info">
+  If you want per-session logs, manually clear or rename this file before starting the server.
+</Callout>
+
+---
+
+### `meta/authlibinjector.jar`
+
+The authlib-injector Java agent binary. Downloaded automatically from the official GitHub release on first run.
+
+<Callout type="info" title="Info">
+  If you want to pin a specific version of authlib-injector, place the JAR at this path manually before running YggUtils. The automatic download is skipped if the file already exists.
+</Callout>
+
+## What YggUtils Does Not Touch
+
+YggUtils does not create or modify any Minecraft server files. The following remain entirely under the server JAR's control:
+
+- `server.properties`
+- `ops.json`, `whitelist.json`, `banned-players.json`
+- World data
+- Plugin and mod files

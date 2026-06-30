@@ -11,11 +11,11 @@
     "---Guide---",
     "how-launching-works",
     "authlib-injector",
+    "console-forwarding",
+    "auto-restart",
     "---Reference---",
-    "navigation",
-    "versioning",
-    "deploying",
-    "internationalization",
-    "search"
+    "configuration",
+    "file-structure",
+    "exit-codes"
   ]
 }

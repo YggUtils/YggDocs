@@ -1,0 +1,74 @@
+---
+title: Configuration
+description: Complete reference for YggUtils.yml — every field, type, default, and validation rule.
+icon: Settings
+---
+
+YggUtils is configured through a single YAML file — `YggUtils.yml` — located in the same directory you run the JAR from.
+
+## Generating the Config
+
+If `YggUtils.yml` does not exist when YggUtils starts, it is created automatically and YggUtils exits immediately with code `0`:
+
+```yaml
+authserver: ''
+serverfile: ''
+```
+
+Fill in both fields and run YggUtils again.
+
+## Fields
+
+### `authserver`
+
+| Property | Value |
+|---|---|
+| Type | `string` |
+| Required | Yes |
+| Default | *(empty)* |
+
+The root URL of your Yggdrasil-compatible authentication server. This is passed directly to authlib-injector as the agent argument.
+
+```yaml
+authserver: https://auth.example.com
+```
+
+<Callout type="warn" title="Warning">
+  Provide only the root URL. Do not include a trailing path — authlib-injector appends the necessary API paths itself.
+</Callout>
+
+### `serverfile`
+
+| Property | Value |
+|---|---|
+| Type | `string` |
+| Required | Yes |
+| Default | *(empty)* |
+
+The filename of the Minecraft server JAR to launch, relative to the working directory.
+
+```yaml
+serverfile: server.jar
+```
+
+YggUtils verifies this file exists on disk before starting. If it does not exist, YggUtils exits with code `1`.
+
+## Full Example
+
+```yaml
+authserver: https://auth.example.com
+serverfile: fabric-server-launch.jar
+```
+
+## Validation Rules
+
+| Condition | Behaviour | Exit Code |
+|---|---|---|
+| File does not exist | Config generated, prompts to fill it in | `0` |
+| `authserver` is empty | Warning printed, server not started | `0` |
+| `serverfile` is empty | Warning printed, server not started | `0` |
+| `serverfile` file not found on disk | Error printed | `1` |
+
+## Reconfiguring
+
+Edit `YggUtils.yml` directly and restart YggUtils to apply changes. To reset to a blank config, delete the file and run YggUtils once to regenerate it.

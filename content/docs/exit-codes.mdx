@@ -1,0 +1,37 @@
+---
+title: Exit Codes
+description: Reference for all exit codes produced by YggUtils and the Minecraft server process it manages.
+icon: Hash
+---
+
+YggUtils uses exit codes to communicate the reason it stopped. This is useful for hosting panels, process monitors, or startup scripts that observe the wrapper process.
+
+## YggUtils Exit Codes
+
+These codes are produced by the **YggUtils wrapper itself**.
+
+| Code | Reason |
+|---|---|
+| `0` | Config file was missing — generated successfully, fill it in and re-run |
+| `0` | Config values are empty — fill in `authserver` and `serverfile` |
+| `0` | Server shut down cleanly (server process exited with code `0`) |
+| `1` | `serverfile` path does not exist on disk |
+| `1` | authlib-injector download failed |
+| `1` | authlib-injector file missing after a download was attempted |
+
+<Callout type="info" title="Info">
+  A `0` exit from YggUtils always means either a successful clean stop, or a setup step that requires your attention (config missing or incomplete). It is never an error state.
+</Callout>
+
+## Server Exit Codes
+
+These codes are produced by the **Minecraft server process** and observed by YggUtils to decide whether to restart.
+
+| Code | Meaning | YggUtils Action |
+|---|---|---|
+| `0` | Clean shutdown via `/stop` or equivalent | Wrapper exits with code `0` |
+| Non-zero | Crash, OOM kill, or unexpected termination | Restart after 3 seconds |
+
+<Callout type="warn" title="Warning">
+  YggUtils does not remap or translate server exit codes. The restart/stop decision is based purely on whether the code equals `0` or not.
+</Callout>

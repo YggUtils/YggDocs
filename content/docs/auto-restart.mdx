@@ -1,0 +1,47 @@
+---
+title: Auto-Restart
+description: How YggUtils detects server crashes and automatically relaunches the server.
+icon: RefreshCw
+---
+
+YggUtils automatically restarts your Minecraft server if it exits unexpectedly, with no extra configuration needed.
+
+## How It Works
+
+After the server process exits, YggUtils inspects the exit code:
+
+| Exit Code | Meaning | Action |
+|---|---|---|
+| `0` | Clean shutdown (`/stop`) | YggUtils exits alongside the server |
+| Non-zero | Crash or unexpected termination | Wait 3 seconds, then relaunch |
+
+This loop runs indefinitely until a clean shutdown occurs.
+
+## Triggering a Clean Shutdown
+
+To stop both the server and YggUtils together, shut down the server normally from within Minecraft or your console:
+
+```
+stop
+```
+
+YggUtils forwards this to the server process. The server exits with code `0`, and the wrapper exits with it.
+
+## Crash Behaviour
+
+When the server crashes — for example, from an `OutOfMemoryError`, a fatal plugin exception, or an external kill signal — YggUtils will:
+
+1. Detect the non-zero exit code
+2. Wait **3 seconds**
+3. Re-run the exact same launch command
+4. Resume piping output and forwarding console input
+
+All output across restarts is appended to `YggUtils-server.log`, giving you a continuous record.
+
+## Killing YggUtils Directly
+
+<Callout type="warn" title="Warning">
+  If you terminate the YggUtils process externally (e.g. `Ctrl+C`, `SIGTERM`, or a hosting panel "stop" button), the child server process may continue running as an orphan depending on your OS and how the signal is handled.
+</Callout>
+
+For reliable shutdown in production environments, always use `/stop` from within the server rather than terminating the wrapper process externally.
