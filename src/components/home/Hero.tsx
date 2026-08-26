@@ -5,6 +5,7 @@ import { ArrowRightIcon } from "lucide-react";
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
 
 import { DocsPreview } from "./DocsPreview";
+import { cn } from "@/lib/cn";
 
 export function Hero() {
   return (
