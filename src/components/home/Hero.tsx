@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
 import { BookIcon } from "lucide-react";
+import { CodeXmlIcon } from "lucide-react";
 
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
 
@@ -52,6 +53,16 @@ export function Hero() {
           >
             <BookIcon className="size-4" />
             Getting Started
+          </Link>
+          <Link
+            href="https://github.com/YggUtils/YggUtils"
+            className={cn(
+              buttonVariants({ variant: "secondary" }),
+              "mt-8 mb-12 gap-2 w-40 rounded-xl",
+            )}
+          >
+            <BookIcon className="size-4" />
+            Github
           </Link>
         </div>
       </div>
