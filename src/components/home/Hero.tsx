@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon } from "lucide-react";
+import { BookIcon } from "lucide-react";
 
 import { buttonVariants } from "fumadocs-ui/components/ui/button";
 
