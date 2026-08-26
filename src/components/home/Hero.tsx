@@ -43,30 +43,28 @@ export function Hero() {
           <p className="mt-8 text-lg leading-8 text-fd-muted-foreground">
             Built for hosts that don't expose JVM arguments.
           </p>
-
-          <Link
-            href="/docs"
-            className={cn(
-              buttonVariants({ variant: "primary" }),
-              "w-40 gap-2 rounded-xl",
-            )}
-          >
-            <BookIcon className="size-4" />
-            Getting Started
-          </Link>
-        
-          <Link
-            href="https://github.com/YggUtils/YggUtils"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: "secondary" }),
-              "w-40 gap-2 rounded-xl",
-            )}
-          >
-            <CodeXmlIcon className="size-4" />
-            GitHub
-          </Link>
+          <div className="flex gap-4">
+            <Link
+              href="/docs"
+              className={cn(
+                buttonVariants({ variant: "primary" }),
+                "mt-8 mb-12 gap-2 w-40 rounded-xl",
+              )}
+            >
+              <BookIcon className="size-4" />
+              Getting Started
+            </Link>
+            <Link
+              href="https://github.com/YggUtils/YggUtils"
+              className={cn(
+                buttonVariants({ variant: "secondary" }),
+                "mt-8 mb-12 gap-2 w-40 rounded-xl",
+              )}
+            >
+              <CodeXmlIcon className="size-4" />
+              Github
+            </Link>
+          </div>
         </div>
       </div>
 
