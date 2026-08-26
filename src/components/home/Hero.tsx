@@ -43,12 +43,13 @@ export function Hero() {
 
           <Link
             href="/docs"
-            className={`${buttonVariants({
-              variant: "primary",
-            })} group mt-8 inline-flex h-12 w-fit items-center gap-2 rounded-xl px-6 text-base font-medium shadow-md transition-shadow duration-300 hover:shadow-xl`}
+            className={cn(
+              buttonVariants({ variant: "primary" }),
+              "mt-8 mb-12 gap-2 w-40 rounded-xl",
+            )}
           >
-            Get Started
-            <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            <BookIcon className="size-4" />
+            Getting Started
           </Link>
         </div>
       </div>
