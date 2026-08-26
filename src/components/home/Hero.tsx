@@ -43,7 +43,7 @@ export function Hero() {
           <p className="mt-8 text-lg leading-8 text-fd-muted-foreground">
             Built for hosts that don't expose JVM arguments.
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <Link
               href="/docs"
               className={cn(
@@ -62,7 +62,7 @@ export function Hero() {
               )}
             >
               <CodeXmlIcon className="size-4" />
-              Github
+              View Source
             </Link>
           </div>
         </div>
