@@ -48,21 +48,24 @@ export function Hero() {
             href="/docs"
             className={cn(
               buttonVariants({ variant: "primary" }),
-              "mt-8 mb-12 gap-2 w-40 rounded-xl",
+              "w-40 gap-2 rounded-xl",
             )}
           >
             <BookIcon className="size-4" />
             Getting Started
           </Link>
+        
           <Link
             href="https://github.com/YggUtils/YggUtils"
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
               buttonVariants({ variant: "secondary" }),
-              "mt-8 mb-12 gap-2 w-40 rounded-xl",
+              "w-40 gap-2 rounded-xl",
             )}
           >
             <CodeXmlIcon className="size-4" />
-            Github
+            GitHub
           </Link>
         </div>
       </div>
