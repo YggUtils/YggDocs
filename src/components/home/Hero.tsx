@@ -61,7 +61,7 @@ export function Hero() {
               "mt-8 mb-12 gap-2 w-40 rounded-xl",
             )}
           >
-            <BookIcon className="size-4" />
+            <CodeXml className="size-4" />
             Github
           </Link>
         </div>
